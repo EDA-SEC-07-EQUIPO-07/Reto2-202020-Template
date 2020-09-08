@@ -36,7 +36,22 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+def initCatalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo
+    catalog = model.newCatalog()
+    return catalog
 
+def loadData(catalog, booksfile, tagsfile, booktagsfile):
+    """
+    Carga los datos de los archivos en el modelo
+    """
+    loadMovie(catalog, movie)
+
+def loadMovie (catalog,movie):
+    model.addMovie(catalog, movie) 
 
 
 
@@ -44,3 +59,31 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+def movieSize():
+    retorno = model.sizeMovies()
+    return retorno
+def Titulo(catalog, pos):
+    retorno = model.getTitulo(catalog, pos)
+    return retorno
+
+def Fecha(catalog, pos):
+    retorno = model.getFecha(catalog, pos)
+    return retorno
+
+def Promedio(catalog, pos):
+    retorno = model.getPromedio(catalog, pos)
+    return retorno
+
+def Votos(catalog, pos):
+    retorno = model.getVotos(catalog,pos)
+    return retorno
+
+def Idioma(catalog, pos):
+    retorno = model.getIdioma(catalog,pos)
+    return retorno
+
+def FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño):
+    retorno = model.getFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño)
+    return retorno
+
+
