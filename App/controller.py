@@ -19,12 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+ 
 import config as cf
 from App import model
 import csv
-
-
+ 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 Existen algunas operaciones en las que se necesita invocar
@@ -32,58 +31,66 @@ el modelo varias veces o integrar varias de las respuestas
 del modelo en una sola respuesta. Esta responsabilidad
 recae sobre el controlador.
 """
-
+ 
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-def initCatalog():
-    """
+definitCatalog():
+"""
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    # catalog es utilizado para interactuar con el modelo
+# catalog es utilizado para interactuar con el modelo
     catalog = model.newCatalog()
-    return catalog
-
-def loadData(catalog, booksfile, tagsfile, booktagsfile):
-    """
-    Carga los datos de los archivos en el modelo
-    """
-    loadMovie(catalog, movie)
-
-def loadMovie (catalog,movie):
-    model.addMovie(catalog, movie) 
-
+return catalog
 
 
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-def movieSize():
-    retorno = model.sizeMovies()
-    return retorno
-def Titulo(catalog, pos):
+ 
+defloadData(catalog, moviesfile):
+"""
+    Carga los datos de los archivos en el modelo
+    """
+    loadMovie(catalog, moviesfile)
+ 
+defloadMovie(catalog, moviesfile):
+    moviesfile = cf.data_dir + moviesfile
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    input_file = csv.DictReader(open(moviesfile,encoding="utf-8"),dialect=dialect)
+for movie in input_file:
+        model.addMovie(catalog,movie)
+ 
+# ___________________________________________________
+#  Funciones para consultas
+# ___________________________________________________
+defmovieSize(catalog):
+    retorno = model.sizeMovies(catalog)
+return retorno
+ 
+defTitulo(catalog, pos):
     retorno = model.getTitulo(catalog, pos)
-    return retorno
-
-def Fecha(catalog, pos):
+return retorno
+ 
+defFecha(catalog, pos):
     retorno = model.getFecha(catalog, pos)
-    return retorno
-
-def Promedio(catalog, pos):
+return retorno
+ 
+defPromedio(catalog, pos):
     retorno = model.getPromedio(catalog, pos)
-    return retorno
-
-def Votos(catalog, pos):
+return retorno
+ 
+defVotos(catalog, pos):
     retorno = model.getVotos(catalog,pos)
-    return retorno
-
-def Idioma(catalog, pos):
+return retorno
+ 
+defIdioma(catalog, pos):
     retorno = model.getIdioma(catalog,pos)
-    return retorno
-
-def FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño):
-    retorno = model.getFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño)
-    return retorno
-
+return retorno
+ 
+defFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
+    retorno = model.getFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos)
+return retorno
 
