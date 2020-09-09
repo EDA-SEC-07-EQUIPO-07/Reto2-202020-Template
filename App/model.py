@@ -36,7 +36,7 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 
 def newCatalog():
-    catalog={'Movies':None,}
+    catalog={'Movies':None}
     catalog['Movies'] = lt.newList('ARRAY_LIST', compareMovieIds)
     return catalog
 
@@ -87,12 +87,12 @@ def getFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tam
         lt.addLast(Lf,"Número de películas cargadas:"+tamaño)
     else:
         lt.addLast(Lf,"Última película")
-    lt.addLast(LF,"Título:"+titulo)
-    lt.addLast(LF,"Fecha de estreno:"+fecha)
-    lt.addLast(LF,"Promedio de la votación:"+promedio)
-    lt.addLast(LF,"Número de votos:"+votos)
-    lt.addLast(LF,"Idioma original:"+idioma)
-    return LF
+    lt.addLast(Lf,"Título:"+titulo)
+    lt.addLast(Lf,"Fecha de estreno:"+fecha)
+    lt.addLast(Lf,"Promedio de la votación:"+promedio)
+    lt.addLast(Lf,"Número de votos:"+votos)
+    lt.addLast(Lf,"Idioma original:"+idioma)
+    return Lf
 
 # ==============================
 # Funciones de Comparacion
