@@ -35,7 +35,7 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-definitCatalog():
+def initCatalog():
 """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
@@ -49,13 +49,13 @@ return catalog
 #  de datos en los modelos
 # ___________________________________________________
  
-defloadData(catalog, moviesfile):
+def loadData(catalog, moviesfile):
 """
     Carga los datos de los archivos en el modelo
     """
     loadMovie(catalog, moviesfile)
  
-defloadMovie(catalog, moviesfile):
+def loadMovie(catalog, moviesfile):
     moviesfile = cf.data_dir + moviesfile
     dialect = csv.excel()
     dialect.delimiter=";"
@@ -66,31 +66,31 @@ for movie in input_file:
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
-defmovieSize(catalog):
+def movieSize(catalog):
     retorno = model.sizeMovies(catalog)
 return retorno
  
-defTitulo(catalog, pos):
+def Titulo(catalog, pos):
     retorno = model.getTitulo(catalog, pos)
 return retorno
  
-defFecha(catalog, pos):
+def Fecha(catalog, pos):
     retorno = model.getFecha(catalog, pos)
 return retorno
  
-defPromedio(catalog, pos):
+def Promedio(catalog, pos):
     retorno = model.getPromedio(catalog, pos)
 return retorno
  
-defVotos(catalog, pos):
+def Votos(catalog, pos):
     retorno = model.getVotos(catalog,pos)
 return retorno
  
-defIdioma(catalog, pos):
+def Idioma(catalog, pos):
     retorno = model.getIdioma(catalog,pos)
 return retorno
  
-defFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
+def FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
     retorno = model.getFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos)
 return retorno
 
