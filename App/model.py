@@ -52,7 +52,7 @@ def addMovie (catalog,movie):
 # Funciones de consulta
 # ==============================
 
-def sizeMovies():
+def sizeMovies(catalog):
     return lt.size(catalog['Movies'])
 
 def getTitulo(catalog,pos):
@@ -80,19 +80,21 @@ def getIdioma(catalog,pos):
     idioma=pelicula['original_language']
     return idioma
 
-def getFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño):
+def getFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
     Lf=lt.newList('ARRAY_LIST',compareMovieIds)
-    pelicula=lt.getElement(catalog['Movie'],pos)
+    pelicula=lt.getElement(catalog['Movies'],pos)
     if pos==1:
-        lt.addLast(Lf,"Número de películas cargadas:"+tamaño)
+        lt.addLast(Lf,"Primera película")
+        lt.addLast(Lf,"Número de películas cargadas:"+str(tamaño))
     else:
         lt.addLast(Lf,"Última película")
+        lt.addLast(Lf,"Número de películas cargadas:"+str(tamaño))
     lt.addLast(Lf,"Título:"+titulo)
     lt.addLast(Lf,"Fecha de estreno:"+fecha)
     lt.addLast(Lf,"Promedio de la votación:"+promedio)
     lt.addLast(Lf,"Número de votos:"+votos)
     lt.addLast(Lf,"Idioma original:"+idioma)
-    return Lf
+    return Lf['elements']
 
 # ==============================
 # Funciones de Comparacion
