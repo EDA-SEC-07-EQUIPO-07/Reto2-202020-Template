@@ -39,7 +39,7 @@ operación seleccionada.
 # ___________________________________________________
 
 
-
+moviesfile = "SmallMoviesDetailsCleaned.csv"
 
 
 # ___________________________________________________
@@ -55,7 +55,15 @@ def printFirstandLast(listmovie):
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
-y7
+
+def printmenu():
+    print("Bienvenido")
+    print("1 - Inicializar Catalogo")
+    print("2 - Cargar informacion en el catalogo")
+    print("3 - Imprimir primera y ultima pelicula")
+    print("0 - Salir")
+
+
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
