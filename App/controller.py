@@ -41,7 +41,7 @@ def initCatalog():
     """
 # catalog es utilizado para interactuar con el modelo
     catalog = model.newCatalog()
-return catalog
+    return catalog
 
 
 # ___________________________________________________
@@ -60,7 +60,7 @@ def loadMovie(catalog, moviesfile):
     dialect = csv.excel()
     dialect.delimiter=";"
     input_file = csv.DictReader(open(moviesfile,encoding="utf-8"),dialect=dialect)
-for movie in input_file:
+    for movie in input_file:
         model.addMovie(catalog,movie)
  
 # ___________________________________________________
@@ -68,29 +68,29 @@ for movie in input_file:
 # ___________________________________________________
 def movieSize(catalog):
     retorno = model.sizeMovies(catalog)
-return retorno
+    return retorno
  
 def Titulo(catalog, pos):
     retorno = model.getTitulo(catalog, pos)
-return retorno
+    return retorno
  
 def Fecha(catalog, pos):
     retorno = model.getFecha(catalog, pos)
-return retorno
+    return retorno
  
 def Promedio(catalog, pos):
     retorno = model.getPromedio(catalog, pos)
-return retorno
+    return retorno
  
 def Votos(catalog, pos):
     retorno = model.getVotos(catalog,pos)
-return retorno
+    return retorno
  
 def Idioma(catalog, pos):
     retorno = model.getIdioma(catalog,pos)
-return retorno
+    return retorno
  
 def FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
     retorno = model.getFirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos)
-return retorno
+    return retorno
 
