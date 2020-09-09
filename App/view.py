@@ -38,7 +38,6 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
 moviesfile="SmallMoviesDetailsCleaned.csv"
 
 
