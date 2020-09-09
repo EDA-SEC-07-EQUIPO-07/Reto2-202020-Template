@@ -81,7 +81,7 @@ while True:
     elif int(inputs[0]) == 3:
         Tamaño = controller.movieSize(cont)
         Titulo1 = controller.Titulo(cont, 1)
-        Titulo2 = controller.Titulo(cont, Tamano)
+        Titulo2 = controller.Titulo(cont, Tamaño)
         Fecha1 = controller.Fecha(cont, 1):
         Fecha2 = controller.Fecha(cont,Tamaño):
         Promedio1 = controller.Promedio(cont, 1):
