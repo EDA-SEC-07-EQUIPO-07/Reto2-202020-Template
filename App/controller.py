@@ -36,7 +36,7 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 def initCatalog():
-"""
+    """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
 # catalog es utilizado para interactuar con el modelo
@@ -50,7 +50,7 @@ def initCatalog():
 # ___________________________________________________
  
 def loadData(catalog, moviesfile):
-"""
+    """
     Carga los datos de los archivos en el modelo
     """
     loadMovie(catalog, moviesfile)
