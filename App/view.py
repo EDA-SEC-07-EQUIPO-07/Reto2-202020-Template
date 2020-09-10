@@ -47,15 +47,15 @@ moviesfile="SmallMoviesDetailsCleaned.csv"
 #  el controlador.
 # ___________________________________________________
 
-def printFirstandLast(listmovie):
-    print(controller.FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño))
+def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
+    print(controller.FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos))
 
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
 
-def printmenu():
+def printMenu():
     print("Bienvenido")
     print("1 - Inicializar Catalogo")
     print("2 - Cargar informacion en el catalogo")
@@ -74,24 +74,23 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.loadData(cont, moviefile)
+        controller.loadData(cont, moviesfile)
         print('peliculas cargados: ' + str(controller.movieSize(cont)))
 
     elif int(inputs[0]) == 3:
         Tamaño = controller.movieSize(cont)
         Titulo1 = controller.Titulo(cont, 1)
         Titulo2 = controller.Titulo(cont, Tamaño)
-        Fecha1 = controller.Fecha(cont, 1):
-        Fecha2 = controller.Fecha(cont,Tamaño):
-        Promedio1 = controller.Promedio(cont, 1):
-        Promedio2 = controller.Promedio(cont, Tamaño):
-        Votos1 = controller.Votos(cont, 1):
-        Votos2 = controller.Votos(cont, Tamaño):
-        Idioma1 = controller.Idioma(cont, 1):
-        Idioma2 = controller.Idioma(cont, Tamaño):
-
-        printFirstandLast(cont,Titulo1, Fecha1, Promedio1, Votos1, Idioma1,Tamaño):
-        printFirstandLast(cont,Titulo2, Fecha2, Promedio2, Votos2, Idioma2,Tamaño):
+        Fecha1 = controller.Fecha(cont, 1)
+        Fecha2 = controller.Fecha(cont,Tamaño)
+        Promedio1 = controller.Promedio(cont, 1)
+        Promedio2 = controller.Promedio(cont, Tamaño)
+        Votos1 = controller.Votos(cont, 1)
+        Votos2 = controller.Votos(cont, Tamaño)
+        Idioma1 = controller.Idioma(cont, 1)
+        Idioma2 = controller.Idioma(cont, Tamaño)
+        printFirstandLast(cont,Titulo1, Fecha1, Promedio1, Votos1, Idioma1,Tamaño,1)
+        printFirstandLast(cont,Titulo2, Fecha2, Promedio2, Votos2, Idioma2,Tamaño,Tamaño)   
     else:
         sys.exit(0)
 sys.exit(0)
