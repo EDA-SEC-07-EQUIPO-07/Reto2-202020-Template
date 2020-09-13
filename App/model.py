@@ -36,7 +36,7 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 
 def newCatalog():
-    catalog={'Movies':None
+    catalog={'Movies':None,
              'Producers':None}
     catalog['Movies'] = lt.newList('ARRAY_LIST', compareMovieIds)
     catalog['Producers']=mp.newMap(329053,maptype='CHAINING',loadfactor=2,comparefunction=CompareProducersByName)
@@ -66,17 +66,17 @@ def addProducer (catalog, producer):
     acum=0
     titulo=[]
     tupla=()
-    for i in range(1,tamaño+1)
+    for i in range(1,tamaño+1):
         pelicula=lt.getElement(catalog['Movies'],i)
-        if pelicula['production_companies']==producer:
+        if pelicula['production_companies'].lower()==producer.lower():
             productora=pelicula['production_companies']
-            titulo=acum.append(getTitulo(catalog,i))
+            titulo.append(getTitulo(catalog,i))
             acum=acum+float(getPromedio(catalog,i))
     tamaño_peliculas=len(titulo)
     promedio=acum/tamaño_peliculas
     nuevos_productores=newProducer(titulo,tamaño_peliculas,promedio)
-    tupla=(titulo,tamaño_peliculas,promedio)
-    mp.put(catalog['Producers'],productora,tupla)
+    productoras=mp.put(catalog['Producers'],productora,nuevos_productores)
+    return productoras
     
 
 
@@ -140,3 +140,11 @@ def compareMovieIds(id1,id2):
     else:
         return -1
 
+def CompareProducersByName(name, Producers):
+    producerentry = me.getKey(Producers)
+    if (name == producerentry):
+        return 0
+    elif (name > producerentry):
+        return 1
+    else:
+        return -1
