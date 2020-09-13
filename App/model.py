@@ -36,16 +36,48 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 
 def newCatalog():
-    catalog={'Movies':None}
+    catalog={'Movies':None
+             'Producers':None}
     catalog['Movies'] = lt.newList('ARRAY_LIST', compareMovieIds)
+    catalog['Producers']=mp.newMap(329053,maptype='CHAINING',loadfactor=2,comparefunction=CompareProducersByName)
     return catalog
 
+def newProducer(nom_movies,tot_movies,prom_movies): 
+    producer={'Peliculas':None,
+              'Total películas':None,
+              'Promedio':None}
+    producer['Peliculas']=nom_movies
+    producer['Total películas']=tot_movies
+    producer['Promedio']=prom_movies
+    return producer
+    
+    
+    
 
 
 # Funciones para agregar informacion al catalogo
 
 def addMovie (catalog,movie):
-    lt.addLast(catalog['Movies'],movie)
+    lt.addLast(catalog['Movies'],movie)}
+    
+
+def addProducer (catalog, producer):
+    tamaño=sizeMovies(catalog)
+    acum=0
+    titulo=[]
+    tupla=()
+    for i in range(1,tamaño+1)
+        pelicula=lt.getElement(catalog['Movies'],i)
+        if pelicula['production_companies']==producer:
+            productora=pelicula['production_companies']
+            titulo=acum.append(getTitulo(catalog,i))
+            acum=acum+float(getPromedio(catalog,i))
+    tamaño_peliculas=len(titulo)
+    promedio=acum/tamaño_peliculas
+    nuevos_productores=newProducer(titulo,tamaño_peliculas,promedio)
+    tupla=(titulo,tamaño_peliculas,promedio)
+    mp.put(catalog['Producers'],productora,tupla)
+    
 
 
 # ==============================
