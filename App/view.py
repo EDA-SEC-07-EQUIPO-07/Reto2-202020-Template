@@ -60,6 +60,17 @@ def infoProductor(catalog, producer):
 #  Menu principal
 # ___________________________________________________
 
+def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
+    print(controller.FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos))
+
+def infoProductor(catalog, producer):
+    print(controller.infoProductor(catalog, producer))
+
+
+# ___________________________________________________
+#  Menu principal
+# ___________________________________________________
+
 def printMenu():
     print("Bienvenido")
     print("1 - Inicializar Catalogo")
@@ -104,6 +115,13 @@ while True:
         print(infoProductor(cont, producer))
         t1_stop = process_time()
         print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+
+    
+    elif int(inputs[0]) == 4:
+        producer = input("Ingrese el nombre del productor:  ")
+        print(infoProductor(cont, producer))
+           
+
     else:
         sys.exit(0)
 sys.exit(0)
