@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+from time import process_time 
 assert config
 
 """
@@ -49,6 +50,10 @@ moviesfile="AllMoviesDetailsCleaned.csv"
 
 def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
     print(controller.FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos))
+
+
+def infoProductor(catalog, producer):
+    print(controller.infoProductor(catalog, producer))
 
 
 # ___________________________________________________
@@ -103,11 +108,20 @@ while True:
         Idioma2 = controller.Idioma(cont, Tamaño)
         printFirstandLast(cont,Titulo1, Fecha1, Promedio1, Votos1, Idioma1,Tamaño,1)
         printFirstandLast(cont,Titulo2, Fecha2, Promedio2, Votos2, Idioma2,Tamaño,Tamaño)
+
+    elif int(inputs[0]) == 4:
+        t1_start = process_time()
+        producer = input("Ingrese el nombre del productor:  ")
+        print(infoProductor(cont, producer))
+        t1_stop = process_time()
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+
     
     elif int(inputs[0]) == 4:
         producer = input("Ingrese el nombre del productor:  ")
         print(infoProductor(cont, producer))
            
+
     else:
         sys.exit(0)
 sys.exit(0)

@@ -39,7 +39,7 @@ def newCatalog():
     catalog={'Movies':None,
              'Producers':None}
     catalog['Movies'] = lt.newList('ARRAY_LIST', compareMovieIds)
-    catalog['Producers']=mp.newMap(329053,maptype='CHAINING',loadfactor=2,comparefunction=CompareProducersByName)
+    catalog['Producers']=mp.newMap(1,maptype='PROBING',loadfactor=0.5,comparefunction=CompareProducersByName)
     return catalog
 
 def newProducer(nom_movies,tot_movies,prom_movies): 
@@ -58,7 +58,7 @@ def newProducer(nom_movies,tot_movies,prom_movies):
 # Funciones para agregar informacion al catalogo
 
 def addMovie (catalog,movie):
-    lt.addLast(catalog['Movies'],movie)}
+    lt.addLast(catalog['Movies'],movie)
     
 
 def addProducer (catalog, producer):
@@ -75,8 +75,8 @@ def addProducer (catalog, producer):
     tamaño_peliculas=len(titulo)
     promedio=acum/tamaño_peliculas
     nuevos_productores=newProducer(titulo,tamaño_peliculas,promedio)
-    productoras=mp.put(catalog['Producers'],productora,nuevos_productores)
-    return productoras
+    mp.put(catalog['Producers'],productora,nuevos_productores)
+    return mp.get(catalog['Producers'],productora)
     
 
 
