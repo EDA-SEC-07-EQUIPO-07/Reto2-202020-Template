@@ -38,7 +38,7 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-moviesfile="SmallMoviesDetailsCleaned.csv"
+moviesfile="AllMoviesDetailsCleaned.csv"
 
 
 # ___________________________________________________
@@ -55,11 +55,23 @@ def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
 #  Menu principal
 # ___________________________________________________
 
+def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
+    print(controller.FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos))
+
+def infoProductor(catalog, producer):
+    print(controller.infoProductor(catalog, producer))
+
+
+# ___________________________________________________
+#  Menu principal
+# ___________________________________________________
+
 def printMenu():
     print("Bienvenido")
     print("1 - Inicializar Catalogo")
     print("2 - Cargar informacion en el catalogo")
     print("3 - Imprimir primera y ultima pelicula")
+    print("4 - Informacion de una productora")
     print("0 - Salir")
 
 
@@ -90,7 +102,12 @@ while True:
         Idioma1 = controller.Idioma(cont, 1)
         Idioma2 = controller.Idioma(cont, Tamaño)
         printFirstandLast(cont,Titulo1, Fecha1, Promedio1, Votos1, Idioma1,Tamaño,1)
-        printFirstandLast(cont,Titulo2, Fecha2, Promedio2, Votos2, Idioma2,Tamaño,Tamaño)   
+        printFirstandLast(cont,Titulo2, Fecha2, Promedio2, Votos2, Idioma2,Tamaño,Tamaño)
+    
+    elif int(inputs[0]) == 4:
+        producer = input("Ingrese el nombre del productor:  ")
+        print(infoProductor(cont, producer))
+           
     else:
         sys.exit(0)
 sys.exit(0)
