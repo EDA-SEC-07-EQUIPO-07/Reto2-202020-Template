@@ -44,3 +44,10 @@ recae sobre el controlador.
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
+
+
+def infoGenero(catalog, genero):
+    retorno = model.addGenero(catalog, genero)
+    return retorno
+
+
