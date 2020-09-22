@@ -37,9 +37,11 @@ es decir contiene los modelos con los datos en memoria
 
 def newCatalog():
     catalog={'Movies':None,
-             'Producers':None}
+             'Producers':None,
+             'generos': None}
     catalog['Movies'] = lt.newList('ARRAY_LIST', compareMovieIds)
     catalog['Producers']=mp.newMap(1,maptype='PROBING',loadfactor=0.5,comparefunction=CompareProducersByName)
+    catalog['generos']=mp.newMap(1,maptype='CHAINING',loadfactor=2,comparefunction=CompareProducersByName)
     return catalog
 
 def newProducer(nom_movies,tot_movies,prom_movies): 
@@ -77,6 +79,22 @@ def addProducer (catalog, producer):
     nuevos_productores=newProducer(titulo,tamaño_peliculas,promedio)
     mp.put(catalog['Producers'],productora,nuevos_productores)
     return mp.get(catalog['Producers'],productora)
+   
+def addGenero (catalog, genero):
+    l_peliculas = []
+    contador = 0
+    valoracion = 0
+    tamaño = sizeMovies(catalog)
+    for n in range(1,tamaño+1):
+        pelicula = lt.getElement(catalog['Movies'], n)
+        if genero.lower()==pelicula["genres"].lower() or genero.lower() in pelicula["genres"].lower():
+            l_peliculas.append(pelicula["title"])
+            contador += 1
+            valoracion += float(pelicula["vote_average"])
+    promedio = valoracion/contador
+    nuevo_genero = newProducer(l_peliculas,contador, promedio)
+    mp.put(catalog['generos'], genero, nuevo_genero)
+    return mp.get(catalog['generos'], genero)
     
 
 
