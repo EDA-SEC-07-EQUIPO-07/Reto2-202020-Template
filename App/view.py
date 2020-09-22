@@ -66,6 +66,9 @@ def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
 def infoProductor(catalog, producer):
     print(controller.infoProductor(catalog, producer))
 
+def infoGenero(catalog, genero):
+    print(controller.infoGenero(catalog, genero))
+
 
 # ___________________________________________________
 #  Menu principal
@@ -77,6 +80,7 @@ def printMenu():
     print("2 - Cargar informacion en el catalogo")
     print("3 - Imprimir primera y ultima pelicula")
     print("4 - Informacion de una productora")
+    print("5 - Informacion de un Genero")
     print("0 - Salir")
 
 
@@ -120,8 +124,11 @@ while True:
     elif int(inputs[0]) == 4:
         producer = input("Ingrese el nombre del productor:  ")
         print(infoProductor(cont, producer))
+       
+    elif int(inputs[0]) == 5:
+        genero = input("Ingrese el genero:  ")
+        print(infoGenero(cont, genero))
            
-
     else:
         sys.exit(0)
 sys.exit(0)
