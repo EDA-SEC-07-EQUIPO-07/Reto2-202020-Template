@@ -101,3 +101,7 @@ def infoProductor(catalog, producer):
 def infoGenero(catalog, genero):
     retorno = model.addGenero(catalog, genero)
     return retorno
+
+def infoPais(catalog, pais):
+    retorno = model.addPais(catalog, pais)
+    return retorno
