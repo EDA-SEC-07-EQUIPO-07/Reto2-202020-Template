@@ -68,6 +68,9 @@ def infoProductor(catalog, producer):
 
 def infoGenero(catalog, genero):
     print(controller.infoGenero(catalog, genero))
+  
+def infoPais(catalog, pais):
+    print(controller.infoPais(catalog, pais))
 
 
 # ___________________________________________________
@@ -81,6 +84,7 @@ def printMenu():
     print("3 - Imprimir primera y ultima pelicula")
     print("4 - Informacion de una productora")
     print("5 - Informacion de un Genero")
+    print("6 - Peliculas producidas en un pais")
     print("0 - Salir")
 
 
@@ -128,6 +132,10 @@ while True:
     elif int(inputs[0]) == 5:
         genero = input("Ingrese el genero:  ")
         print(infoGenero(cont, genero))
+       
+    elif int(inputs[0]) == 5:
+        pais = input("Ingrese el pais:  ")
+        print(infoPais(cont, pais))
            
     else:
         sys.exit(0)
