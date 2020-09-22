@@ -97,3 +97,7 @@ def FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamañ
 def infoProductor(catalog, producer):
     retorno = model.addProducer(catalog, producer)
     return retorno
+
+def infoGenero(catalog, genero):
+    retorno = model.addGenero(catalog, genero)
+    return retorno
