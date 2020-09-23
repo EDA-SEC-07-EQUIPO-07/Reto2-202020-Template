@@ -78,7 +78,11 @@ def loadMovie2(catalog, moviesfile2):
 def movieSize(catalog):
     retorno = model.sizeMovies(catalog)
     return retorno
- 
+  
+def castingSize(catalog):
+    retorno=model.sizeCasting(catalog)
+    return retorno
+  
 def Titulo(catalog, pos):
     retorno = model.getTitulo(catalog, pos)
     return retorno
