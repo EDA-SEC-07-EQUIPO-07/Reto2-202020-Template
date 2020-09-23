@@ -40,6 +40,7 @@ operación seleccionada.
 # ___________________________________________________
 
 moviesfile="AllMoviesDetailsCleaned.csv"
+moviesfile2="AllMoviesCastingRaw.csv"
 
 
 # ___________________________________________________
@@ -55,16 +56,11 @@ def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
 def infoProductor(catalog, producer):
     print(controller.infoProductor(catalog, producer))
 
+def infoActor(catalog, actor):
+    print(controller.infoActor(catalog, actor))
 
-# ___________________________________________________
-#  Menu principal
-# ___________________________________________________
-
-def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
-    print(controller.FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos))
-
-def infoProductor(catalog, producer):
-    print(controller.infoProductor(catalog, producer))
+def infoPais(catalog, pais):
+    print(controller.infoPais(catalog, pais))
 
 
 # ___________________________________________________
@@ -77,6 +73,8 @@ def printMenu():
     print("2 - Cargar informacion en el catalogo")
     print("3 - Imprimir primera y ultima pelicula")
     print("4 - Informacion de una productora")
+    print("6 - Información de un actor")
+    print("7 - Peliculas producidas en un pais")
     print("0 - Salir")
 
 
@@ -91,8 +89,9 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.loadData(cont, moviesfile)
-        print('peliculas cargados: ' + str(controller.movieSize(cont)))
+        controller.loadData(cont, moviesfile, moviesfile2)
+        print('Películas cargadas: ' + str(controller.movieSize(cont)))
+        print('Películas cargadas: ' + str(controller.castingSize(cont)))
 
     elif int(inputs[0]) == 3:
         Tamaño = controller.movieSize(cont)
@@ -110,17 +109,21 @@ while True:
         printFirstandLast(cont,Titulo2, Fecha2, Promedio2, Votos2, Idioma2,Tamaño,Tamaño)
 
     elif int(inputs[0]) == 4:
-        t1_start = process_time()
         producer = input("Ingrese el nombre del productor:  ")
         print(infoProductor(cont, producer))
-        t1_stop = process_time()
-        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+
 
     
-    elif int(inputs[0]) == 4:
-        producer = input("Ingrese el nombre del productor:  ")
-        print(infoProductor(cont, producer))
-           
+    elif int(inputs[0]) == 6:
+        actor = input("Ingrese el nombre del actor:  ")
+        print(infoActor(cont, actor))
+
+    elif int(inputs[0]) == 7:
+        t1_start = process_time()
+        pais = input("Ingrese el pais:  ")
+        print(infoPais(cont, pais))
+        t1_stop = process_time()
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")   
 
     else:
         sys.exit(0)
