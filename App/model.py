@@ -178,7 +178,7 @@ def sizeMovies(catalog):
     return lt.size(catalog['Movies'])
  
 def sizeCasting(catalog):
-    return lt.size(catalog['Casting']
+    return lt.size(catalog['Casting'])
 
 def getTitulo(catalog,pos):
     pelicula=lt.getElement(catalog['Movies'],pos)
