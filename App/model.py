@@ -37,11 +37,19 @@ es decir contiene los modelos con los datos en memoria
 
 def newCatalog():
     catalog={'Movies':None,
+             'Casting':None,
              'Producers':None,
-             'generos': None}
+             'Directors':None,
+             'Actors':None,
+             'generos': None,
+             'Countries':None}
     catalog['Movies'] = lt.newList('ARRAY_LIST', compareMovieIds)
+    catalog['Casting'] =lt.newList('ARRAY_LIST', compareMovieIds)
     catalog['Producers']=mp.newMap(1,maptype='PROBING',loadfactor=0.5,comparefunction=CompareProducersByName)
+    catalog['Directors']=mp.newMap(1,maptype='CHAINING',loadfactor=10,comparefunction=CompareProducersByName)
+    catalog['Actors']=mp.newMap(1,maptype='CHAINING',loadfactor=0.5,comparefunction=CompareProducersByName)
     catalog['generos']=mp.newMap(1,maptype='CHAINING',loadfactor=2,comparefunction=CompareProducersByName)
+    catalog['Countries']=mp.newMap(30011,maptype='PROBING',loadfactor=0.5,comparefunction=CompareProducersByName)
     return catalog
 
 def newProducer(nom_movies,tot_movies,prom_movies): 
@@ -52,17 +60,26 @@ def newProducer(nom_movies,tot_movies,prom_movies):
     producer['Total películas']=tot_movies
     producer['Promedio']=prom_movies
     return producer
-    
-    
-    
-
-
+   
+def newActor(nom_movies,tot_movies,prom_movies,nom_director): 
+    actor={'Peliculas':None,
+            'Total películas':None,
+            'Promedio':None,
+            'Nombre director':None}
+    actor['Peliculas']=nom_movies
+    actor['Total películas']=tot_movies
+    actor['Promedio']=prom_movies
+    actor['Nombre director']=nom_director
+    return actor
+  
 # Funciones para agregar informacion al catalogo
 
 def addMovie (catalog,movie):
     lt.addLast(catalog['Movies'],movie)
     
-
+def addCasting (catalog,movie):
+    lt.addLast(catalog['Casting'],movie)
+  
 def addProducer (catalog, producer):
     tamaño=sizeMovies(catalog)
     acum=0
@@ -79,6 +96,54 @@ def addProducer (catalog, producer):
     nuevos_productores=newProducer(titulo,tamaño_peliculas,promedio)
     mp.put(catalog['Producers'],productora,nuevos_productores)
     return mp.get(catalog['Producers'],productora)
+
+def addDirector (catalog, director):
+    tamaño=sizeMovies(catalog)
+    suma=0
+    titulo=[]
+    tupla=()
+    for i in range(1,tamaño+1):
+        pelicula=lt.getElement(catalog['Casting'],i)
+        if pelicula['director_name'].lower()==director.lower():
+            directores=pelicula['director_name']
+            titulo.append(getTitulo(catalog,i))
+            suma+=float(getPromedio(catalog,i))
+    tamaño_peliculas=len(titulo)
+    promedio=suma/tamaño_peliculas
+    nuevos_directores=newProducer(titulo,tamaño_peliculas,promedio)
+    mp.put(catalog['Directors'],directores,nuevos_directores)
+    return mp.get(catalog['Directors'],directores)
+   
+def addActor (catalog, nombre_actor):
+    tamaño=sizeCasting(catalog)
+    acum=0
+    directores={}
+    titulo=[]
+    lista_directores=[]
+    for i in range(1,tamaño+1):
+        pelicula=lt.getElement(catalog['Movies'],i)
+        nombre=lt.getElement(catalog['Casting'],i)
+        if nombre_actor.lower()==nombre['actor1_name'].lower() or nombre_actor.lower()==nombre['actor2_name'].lower() or nombre_actor.lower()==nombre['actor3_name'].lower() or nombre_actor.lower()==nombre['actor4_name'].lower() or nombre_actor.lower()==nombre['actor5_name'].lower():
+            actor=nombre_actor
+            titulo.append(getTitulo(catalog,i))
+            acum=acum+float(getPromedio(catalog,i))
+            if not((nombre["director_name"]) in directores):
+                directores[nombre["director_name"]]=1
+            elif nombre["director_name"] in directores:
+                directores[nombre["director_name"]]+=1
+    nom_dic=list(directores.keys())
+    num_dic=list(directores.values())
+    max_dic=max(num_dic)
+    i=0
+    while i<len(nom_dic):
+        if max_dic==directores[nom_dic[i]]:
+            lista_directores.append(nom_dic[i])
+        i=i+1
+    tamaño_peliculas=len(titulo)
+    promedio=acum/tamaño_peliculas
+    nuevos_actores=newActor(titulo,tamaño_peliculas,promedio,lista_directores)
+    mp.put(catalog['Actors'],actor,nuevos_actores)
+    return mp.get(catalog['Actors'],actor) 
    
 def addGenero (catalog, genero):
     l_peliculas = []
@@ -95,8 +160,15 @@ def addGenero (catalog, genero):
     nuevo_genero = newProducer(l_peliculas,contador, promedio)
     mp.put(catalog['generos'], genero, nuevo_genero)
     return mp.get(catalog['generos'], genero)
-    
 
+def addPais (catalog,pais):
+    tamaño=sizeCasting(catalog)
+    for i in range(1,tamaño+1):
+        pelicula=lt.getElement(catalog['Movies'],i)
+        nombre=lt.getElement(catalog['Casting'],i)
+        if pais.lower()==pelicula['production_countries'].lower():
+            mp.put(catalog['Countries'],getTitulo(catalog,i),[getFecha(catalog,i),nombre['director_name']])
+    return catalog['Countries']
 
 # ==============================
 # Funciones de consulta
@@ -104,6 +176,9 @@ def addGenero (catalog, genero):
 
 def sizeMovies(catalog):
     return lt.size(catalog['Movies'])
+ 
+def sizeCasting(catalog):
+    return lt.size(catalog['Casting']
 
 def getTitulo(catalog,pos):
     pelicula=lt.getElement(catalog['Movies'],pos)
