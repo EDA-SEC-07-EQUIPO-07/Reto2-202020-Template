@@ -35,16 +35,70 @@ es decir contiene los modelos con los datos en memoria
 # -----------------------------------------------------
 
 def newCatalog():
-    catalog={'Movies':None}
+    catalog={'Movies':None,
+             'Casting':None,
+             'Producers':None,
+             'Directors':None}
     catalog['Movies'] = lt.newList('ARRAY_LIST', compareMovieIds)
+    catalog['Casting'] =lt.newList('ARRAY_LIST', compareMovieIds)
+    catalog['Producers']=mp.newMap(1,maptype='PROBING',loadfactor=0.5,comparefunction=CompareProducersByName)
+    catalog['Directors']=mp.newMap(1,maptype='CHAINING',loadfactor=10,comparefunction=CompareProducersByName)
     return catalog
 
+def newProducer(nom_movies,tot_movies,prom_movies): 
+    producer={'Peliculas':None,
+              'Total películas':None,
+              'Promedio':None}
+    producer['Peliculas']=nom_movies
+    producer['Total películas']=tot_movies
+    producer['Promedio']=prom_movies
+    return producer
+    
+    
+    
 
 
 # Funciones para agregar informacion al catalogo
 
 def addMovie (catalog,movie):
     lt.addLast(catalog['Movies'],movie)
+def addMovie2 (catalog,casting):
+    lt.addLast(catalog['Casting'],casting)
+    
+
+def addProducer (catalog, producer):
+    tamaño=sizeMovies(catalog)
+    acum=0
+    titulo=[]
+    tupla=()
+    for i in range(1,tamaño+1):
+        pelicula=lt.getElement(catalog['Movies'],i)
+        if pelicula['production_companies'].lower()==producer.lower():
+            productora=pelicula['production_companies']
+            titulo.append(getTitulo(catalog,i))
+            acum=acum+float(getPromedio(catalog,i))
+    tamaño_peliculas=len(titulo)
+    promedio=acum/tamaño_peliculas
+    nuevos_productores=newProducer(titulo,tamaño_peliculas,promedio)
+    mp.put(catalog['Producers'],productora,nuevos_productores)
+    return mp.get(catalog['Producers'],productora)
+
+def addDirector (catalog, director):
+    tamaño=sizeMovies(catalog)
+    suma=0
+    titulo=[]
+    tupla=()
+    for i in range(1,tamaño+1):
+        pelicula=lt.getElement(catalog['Casting'],i)
+        if pelicula['director_name'].lower()==director.lower():
+            directores=pelicula['director_name']
+            titulo.append(getTitulo(catalog,i))
+            suma+=float(getPromedio(catalog,i))
+    tamaño_peliculas=len(titulo)
+    promedio=suma/tamaño_peliculas
+    nuevos_directores=newProducer(titulo,tamaño_peliculas,promedio)
+    mp.put(catalog['Directors'],directores,nuevos_directores)
+    return mp.get(catalog['Directors'],directores)
 
 
 # ==============================
@@ -53,6 +107,8 @@ def addMovie (catalog,movie):
 
 def sizeMovies(catalog):
     return lt.size(catalog['Movies'])
+def sizeCasting(catalog):
+    return lt.size(catalog['Casting'])
 
 def getTitulo(catalog,pos):
     pelicula=lt.getElement(catalog['Movies'],pos)
@@ -103,6 +159,15 @@ def compareMovieIds(id1,id2):
     if (id1 == id2):
         return 0
     elif id1 > id2:
+        return 1
+    else:
+        return -1
+
+def CompareProducersByName(name, Producers):
+    producerentry = me.getKey(Producers)
+    if (name == producerentry):
+        return 0
+    elif (name > producerentry):
         return 1
     else:
         return -1

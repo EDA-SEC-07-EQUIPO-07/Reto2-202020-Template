@@ -49,11 +49,12 @@ def initCatalog():
 #  de datos en los modelos
 # ___________________________________________________
  
-def loadData(catalog, moviesfile):
+def loadData(catalog, moviesfile, moviesfile2):
     """
     Carga los datos de los archivos en el modelo
     """
     loadMovie(catalog, moviesfile)
+    loadMovie2(catalog, moviesfile2)
  
 def loadMovie(catalog, moviesfile):
     moviesfile = cf.data_dir + moviesfile
@@ -62,12 +63,23 @@ def loadMovie(catalog, moviesfile):
     input_file = csv.DictReader(open(moviesfile,encoding="utf-8"),dialect=dialect)
     for movie in input_file:
         model.addMovie(catalog,movie)
+
+def loadMovie2(catalog, moviesfile2):
+    moviesfile2 = cf.data_dir + moviesfile2
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    input_file = csv.DictReader(open(moviesfile2,encoding="utf-8"),dialect=dialect)
+    for movie in input_file:
+        model.addMovie2(catalog,movie)
  
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
 def movieSize(catalog):
     retorno = model.sizeMovies(catalog)
+    return retorno
+def castingSize(catalog):
+    retorno = model.sizeCasting(catalog)
     return retorno
  
 def Titulo(catalog, pos):
@@ -96,4 +108,8 @@ def FirstandLastElementsNTFPVI(catalog,titulo,fecha,promedio,votos,idioma,tamañ
 
 def infoProductor(catalog, producer):
     retorno = model.addProducer(catalog, producer)
+    return retorno
+
+def infoDirector(catalog, director):
+    retorno = model.addDirector(catalog, director)
     return retorno
