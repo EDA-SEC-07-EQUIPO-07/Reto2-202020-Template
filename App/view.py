@@ -54,6 +54,9 @@ def printFirstandLast(catalog,titulo,fecha,promedio,votos,idioma,tamaño,pos):
 
 def infoProductor(catalog, producer):
     print(controller.infoProductor(catalog, producer))
+  
+def infoActor(catalog, actor):
+    print(controller.infoActor(catalog, actor))
 
 def infoGenero(catalog, genero):
     print(controller.infoGenero(catalog, genero))
